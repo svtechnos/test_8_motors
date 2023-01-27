@@ -111,6 +111,21 @@ public class Robot extends TimedRobot {
       }
     }
   }
+  public void set_pos(double val){
+    if(counter < 16){
+      if(counter%2!=0){
+        e[counter/2].setPosition(val);
+        System.out.println("e_1 pos: "+e[counter/2].getPosition());
+        //System.out.println("a "+((counter/2)%4)+"pos: "+a[(counter/2)%4].getPosition());
+      } else {clear_Motors();}
+      if(clock.get()>=1){
+        counter++;
+        clear_Motors();
+        clock.reset();
+        clock.start();
+      }
+    }
+  }
   @Override
   public void teleopInit() {
     counter = 0;
@@ -119,7 +134,10 @@ public class Robot extends TimedRobot {
     clear_Motors();
   }
   @Override
-  public void teleopPeriodic() {test_Motors();}
+  public void teleopPeriodic() {
+    test_Motors();
+    set_pos(0.5);
+  }
   @Override
   public void disabledInit() {}
   @Override
